@@ -12,7 +12,7 @@ namespace _Source.Utilits
     internal const string json_file_name = "WeaponData";
     private const string json_file_path = "/_Presentation/Resources/";
 
-    [MenuItem("Tools/CSVUtils/ParseSCV")]
+    //[MenuItem("Tools/CSVUtils/ParseSCV")]
     public static void ParseCSV()
     {
       TextAsset textAsset = Resources.Load<TextAsset>(csv_file_name);

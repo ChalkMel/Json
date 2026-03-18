@@ -1,30 +1,20 @@
 using UnityEngine;
 using System.IO;
-using UnityEditor;
 using Newtonsoft.Json;
-
+using UnityEngine.UI;
 public class VolumeDataController : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
-    
+    [SerializeField] private Slider slider;
     private const string json_file_name = "SoundData";
-    private const string json_file_path = "/_Presentation/Resources/";
     private string _path;
     private VolumeData _volumeData;
     
     private void Awake()
     {
-        _path = Application.dataPath + json_file_path + json_file_name + ".json";
+        _path = Application.persistentDataPath + json_file_name + ".json";
         LoadVolume();
-    }
-    
-    private void Update()
-    {
-        if (_volumeData != null && !Mathf.Approximately(audioSource.volume, _volumeData.Volume))
-        {
-            _volumeData.Volume = audioSource.volume;
-            SaveVolume();
-        }
+        slider.onValueChanged.AddListener(delegate { SaveVolume(); });
     }
     
     private void LoadVolume()
@@ -35,6 +25,7 @@ public class VolumeDataController : MonoBehaviour
             string json = File.ReadAllText(_path);
             _volumeData = JsonConvert.DeserializeObject<VolumeData>(json);
             audioSource.volume = _volumeData.Volume;
+            slider.value = _volumeData.Volume;
         }
         else
         {
@@ -46,11 +37,14 @@ public class VolumeDataController : MonoBehaviour
     private void CreateNewVolumeData()
     {
         _volumeData = new VolumeData(audioSource.volume);
+        slider.value = _volumeData.Volume;
         SaveVolume();
     }
     
     private void SaveVolume()
     {
+        audioSource.volume = slider.value;
+        _volumeData.Volume = audioSource.volume;
         using (StreamWriter sw = new StreamWriter(_path))
         using (JsonWriter jw = new JsonTextWriter(sw))
         {

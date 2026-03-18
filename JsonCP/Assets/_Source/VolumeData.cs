@@ -2,7 +2,7 @@ using System;
 [Serializable]
   public class VolumeData
   {
-    public float Volume { get; set; }
+    public float Volume;
         
     public VolumeData(float volume)
     {
