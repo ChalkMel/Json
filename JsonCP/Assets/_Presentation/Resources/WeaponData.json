@@ -1,0 +1,19 @@
+{
+  "Weapons": [
+    {
+      "Name": "sword",
+      "Damage": 30,
+      "Cooldown": 5.0
+    },
+    {
+      "Name": "chicken",
+      "Damage": 101,
+      "Cooldown": 1.0
+    },
+    {
+      "Name": "shotgun",
+      "Damage": 50,
+      "Cooldown": 3.0
+    }
+  ]
+}
